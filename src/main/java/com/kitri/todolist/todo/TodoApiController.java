@@ -1,11 +1,10 @@
 package com.kitri.todolist.todo;
 
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/api/todos/")
 public class TodoApiController {
     static HashMap <Integer, Todo> todos = new HashMap<>();
     int id = 10;
@@ -19,5 +18,10 @@ public class TodoApiController {
     @GetMapping("")
     public HashMap<Integer, Todo> show(){
         return todos;
+    }
+
+    @PutMapping("{id}")
+    public void finish(@PathVariable int id){
+        todos.get(id).setDone(!todos.get(id).isDone());
     }
 }
