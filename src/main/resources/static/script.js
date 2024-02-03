@@ -5,6 +5,8 @@ async function showTodo(){
     console.log(data);
 
     document.querySelector('ul').innerHTML = "";
+    let input = document.getElementById('input');
+    input.value = null;
 
     for (let i in data){
         let li = document.createElement('li');
@@ -52,7 +54,23 @@ async function doneTodo(item){
     showTodo();
 }
 
+async function deleteTodo(item){
+    await fetch(url + item.id, {
+        method: "DELETE",
+    });
+    showTodo();
+}
+
 document.querySelector('ul').addEventListener('mousedown', (event => {
     let item = event.target;
-    doneTodo(item);
+
+    if(event.which == 3 || event.button == 2){
+        deleteTodo(item);
+    }else
+        doneTodo(item);
+
 }));
+
+window.oncontextmenu = function (){
+    return false;
+};

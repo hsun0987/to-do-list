@@ -24,4 +24,9 @@ public class TodoApiController {
     public void finish(@PathVariable int id){
         todos.get(id).setDone(!todos.get(id).isDone());
     }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable int id){
+        todos.remove(id);
+    }
 }
